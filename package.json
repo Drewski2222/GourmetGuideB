@@ -1,24 +1,14 @@
 {
-  "homepage": "https://drewski2222.github.io/GourmetGuide",
+  "homepage": "http://drewski2222.github.io/GourmetGuide",
   "dependencies": {
-    "autoprefixer": "^10.4.19",
     "body-parser": "^1.20.2",
     "express": "^4.19.2",
-    "jspdf": "^2.5.1",
-    "marked": "^13.0.2",
     "openai": "^4.52.3",
-    "postcss": "^8.4.39",
-    "react-dom": "^18.3.1",
     "react-markdown": "^9.0.1",
-    "react-scripts": "^5.0.1",
-    "serve-static": "^1.15.0",
-    "styled-components": "^6.1.11",
-    "tailwind": "^4.0.0",
-    "web-vitals": "^4.2.1"
+    "serve-static": "^1.15.0"
   },
   "devDependencies": {
-    "gh-pages": "^6.1.1",
-    "tailwindcss": "^3.4.4"
+    "gh-pages": "^6.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -27,17 +17,5 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+    }
 }
