@@ -1,12 +1,39 @@
 {
+  "homepage": "https://drewski2222.github.io/GourmetGuide",
   "dependencies": {
     "body-parser": "^1.20.2",
     "express": "^4.19.2",
+    "jspdf": "^2.5.1",
+    "marked": "^13.0.2",
     "openai": "^4.52.3",
+    "react-dom": "^18.3.1",
     "react-markdown": "^9.0.1",
-    "serve-static": "^1.15.0"
+    "react-scripts": "^5.0.1",
+    "serve-static": "^1.15.0",
+    "styled-components": "^6.1.11",
+    "web-vitals": "^4.2.1"
   },
   "devDependencies": {
     "gh-pages": "^6.1.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
