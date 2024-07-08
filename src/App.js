@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './App.css';
 import { jsPDF } from "jspdf";
 import DOMPurify from 'dompurify';
 import styled from 'styled-components';
