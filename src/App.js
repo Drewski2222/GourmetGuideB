@@ -71,7 +71,7 @@ const MainScreen = ({ onGourmetGuideClick }) => {
   const generateMealPlan = async () => {
     setIsGenerating(true);
     try {
-      const response = await fetch('http://localhost:5000/generate-meal-plan', {
+      const response = await fetch('https://gourmetguide.adaptable.app/generate-meal-plan', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
