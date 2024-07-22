@@ -2,10 +2,18 @@
   "homepage": "http://drewski2222.github.io/GourmetGuide",
   "dependencies": {
     "body-parser": "^1.20.2",
+    "dompurify": "^3.1.6",
     "express": "^4.19.2",
+    "jspdf": "^2.5.1",
+    "marked": "^13.0.2",
+    "multer": "^1.4.5-lts.1",
     "openai": "^4.52.3",
+    "react": "^18.3.1",
     "react-markdown": "^9.0.1",
-    "serve-static": "^1.15.0"
+    "react-scripts": "^5.0.1",
+    "serve-static": "^1.15.0",
+    "styled-components": "^6.1.12",
+    "web-vitals": "^4.2.2"
   },
   "devDependencies": {
     "gh-pages": "^6.1.1"

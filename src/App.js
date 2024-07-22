@@ -11,7 +11,7 @@ import img3 from "./splash.png";
 const HomePage = ({ onGetStarted }) => (
   <div className="min-h-screen bg-blue-900 text-white p-8">
     <div className="container mx-auto">
-      <h1 className="text-4xl font-bold mb-4">Gourmet Guide 🧑‍🍳</h1>
+      <h1 className="text-4xl font-bold mb-4">Gourmet Guide (Design B) 🧑‍🍳</h1>
       <div className="mb-8">
         <p className="mb-2">Get a fully personalized 3-meal per day plan for as many days as you'd like!</p>
         <p className="mb-2">Go from ingredients to delicacies in seconds!</p>
@@ -67,24 +67,36 @@ const MainScreen = ({ onGourmetGuideClick }) => {
   const [mealPlan, setMealPlan] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [daysToPlan, setDaysToPlan] = useState(7);
+  const [inputType, setInputType] = useState(null);
+  const [uploadedImage, setUploadedImage] = useState(null);
 
   const generateMealPlan = async () => {
     setIsGenerating(true);
     try {
-      const response = await fetch('https://gourmetguide.adaptable.app/generate-meal-plan', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          ingredients: ingredients, 
-          daysToPlan: daysToPlan,
-        }),
-      });
-  
+      let response;
+      if (inputType === 'text') {
+        response = await fetch('https://gourmetguide.adaptable.app/generate-meal-plan', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ 
+            ingredients: ingredients, 
+            daysToPlan: daysToPlan,
+          }),
+        });
+      } else if (inputType === 'image' && uploadedImage) {
+        const formData = new FormData();
+        formData.append('image', uploadedImage);
+        formData.append('daysToPlan', daysToPlan);
+        
+        response = await fetch('https://gourmetguide.adaptable.app/generate-meal-plan-from-image', {
+          method: 'POST',
+          body: formData,
+        });
+      }
+
       const data = await response.text();
-      //console.log(data);
-      //console.log(marked(data));
       setMealPlan(marked(data));
     } catch (error) {
       console.error('Error fetching meal plan:', error);
@@ -92,6 +104,11 @@ const MainScreen = ({ onGourmetGuideClick }) => {
     } finally {
       setIsGenerating(false);
     }
+  };
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    setUploadedImage(file);
   };
 
   const downloadPDF = () => {
@@ -154,19 +171,56 @@ const MainScreen = ({ onGourmetGuideClick }) => {
           onClick={onGourmetGuideClick}
           className="text-4xl font-bold mb-8 cursor-pointer"
         >
-          Gourmet Guide 🧑‍🍳
+          Gourmet Guide (Design B) 🧑‍🍳
         </h1>
         <div className="grid grid-cols-2 gap-8">
           <div>
-            <h2 className="text-2xl font-bold mb-4">Ingredients</h2>
-            <h3 className="text-2x1 mb-7">Type your ingredients in below in any format! Only these ingredients will be used in creating the meal plan.</h3>
-            <textarea
-              className="w-full h-40 p-2 text-black rounded"
-              placeholder="Ingredients list"
-              value={ingredients}
-              onChange={(e) => setIngredients(e.target.value)}
-            />
-  
+            <h2 className="text-2xl font-bold mb-4">Input Method</h2>
+            {!inputType && (
+              <div className="mb-4">
+                <button
+                  onClick={() => setInputType('text')}
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mr-4"
+                >
+                  Text Input
+                </button>
+                <button
+                  onClick={() => setInputType('image')}
+                  className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                >
+                  Image Input
+                </button>
+              </div>
+            )}
+            {inputType === 'text' && (
+              <>
+                <h3 className="text-2x1 mb-7">Type your ingredients in below in any format! Only these ingredients will be used in creating the meal plan.</h3>
+                <textarea
+                  className="w-full h-40 p-2 text-black rounded"
+                  placeholder="Ingredients list"
+                  value={ingredients}
+                  onChange={(e) => setIngredients(e.target.value)}
+                />
+              </>
+            )}
+            {inputType === 'image' && (
+              <div className="mb-4">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="hidden"
+                  id="image-upload"
+                />
+                <label
+                  htmlFor="image-upload"
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded cursor-pointer"
+                >
+                  Upload Image
+                </label>
+                {uploadedImage && <p className="mt-2">Image uploaded: {uploadedImage.name}</p>}
+              </div>
+            )}
             <div className="mt-4">
               <label
                 htmlFor="days"
@@ -183,11 +237,10 @@ const MainScreen = ({ onGourmetGuideClick }) => {
                 onChange={(e) => setDaysToPlan(parseInt(e.target.value, 10))}
               />
             </div>
-  
             <button
               onClick={generateMealPlan}
               className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-              disabled={isGenerating}
+              disabled={isGenerating || !inputType || (inputType === 'image' && !uploadedImage)}
             >
               {isGenerating ? 'Working...' : 'Create Meal Plan'}
             </button>
@@ -201,7 +254,7 @@ const MainScreen = ({ onGourmetGuideClick }) => {
                 <span style={{ color: 'gray' }}>Your meal plan will appear here. Click "Create Meal Plan" below!</span>
               )}
             </MealPlanContent>
-            <h3 className="text-2x1 mt-4">Note: Calorie count be inaccurate.</h3>
+            <h3 className="text-2x1 mt-4">Note: Calorie count may be inaccurate.</h3>
             {mealPlan && (
               <div className="mt-4">
                 <p className="mb-5">
