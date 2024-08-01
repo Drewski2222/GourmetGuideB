@@ -4,10 +4,17 @@ import { jsPDF } from "jspdf";
 import DOMPurify from 'dompurify';
 import styled from 'styled-components';
 import { marked } from 'marked';
-import img1 from "./feature-img.png";
-import img2 from "./Chef_icon.svg.png";
-import img3 from "./splash.png";
 import { ArrowRight, UtensilsCrossed, Clock, Sparkles } from 'lucide-react';
+
+const AppWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;
+
+const ContentWrapper = styled.main`
+  flex: 1;
+`;
 
 const FeatureCard = ({ icon: Icon, title, description }) => (
   <div className="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur-sm">
@@ -61,10 +68,6 @@ const HomePage = ({ onGetStarted }) => (
           description="Save time and reduce stress with our efficient meal preparation guidance."
         />
       </section>
-
-      <footer className="text-center text-gray-400">
-        <p>&copy; 2024 Drew Reisner</p>
-      </footer>
     </div>
   </div>
 );
@@ -211,7 +214,7 @@ const MainScreen = ({ onGourmetGuideClick }) => {
         </h1>
         <div className="grid grid-cols-2 gap-8">
           <div>
-            <h2 className="text-2xl font-bold mb-4">Input Method</h2>
+            <h2 className="text-2xl font-bold mb-4">Input Method (select one)</h2>
             {!inputType && (
               <div className="mb-4">
                 <button
@@ -328,13 +331,15 @@ const App = () => {
   };
 
   return (
-    <div>
-      {showMainScreen ? (
-        <MainScreen onGourmetGuideClick={navigateToHome} />
-      ) : (
-        <HomePage onGetStarted={() => setShowMainScreen(true)} />
-      )}
-    </div>
+    <AppWrapper>
+      <ContentWrapper>
+        {showMainScreen ? (
+          <MainScreen onGourmetGuideClick={navigateToHome} />
+        ) : (
+          <HomePage onGetStarted={() => setShowMainScreen(true)} />
+        )}
+      </ContentWrapper>
+    </AppWrapper>
   );
 };
 
