@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/GourmetGuideB/static/css/main.48874a27.css",
-    "main.js": "/GourmetGuideB/static/js/main.6d8698c3.js",
+    "main.css": "/GourmetGuideB/static/css/main.2671014e.css",
+    "main.js": "/GourmetGuideB/static/js/main.30a3db66.js",
     "static/js/239.7172428c.chunk.js": "/GourmetGuideB/static/js/239.7172428c.chunk.js",
     "static/js/644.98e988a5.chunk.js": "/GourmetGuideB/static/js/644.98e988a5.chunk.js",
     "static/js/455.49a1b9d5.chunk.js": "/GourmetGuideB/static/js/455.49a1b9d5.chunk.js",
@@ -10,15 +10,15 @@
     "static/media/feature-img.png": "/GourmetGuideB/static/media/feature-img.d14ea34f7afffd2c7cf9.png",
     "static/media/splash.png": "/GourmetGuideB/static/media/splash.0a93c59fa152a64d6d0c.png",
     "index.html": "/GourmetGuideB/index.html",
-    "main.48874a27.css.map": "/GourmetGuideB/static/css/main.48874a27.css.map",
-    "main.6d8698c3.js.map": "/GourmetGuideB/static/js/main.6d8698c3.js.map",
+    "main.2671014e.css.map": "/GourmetGuideB/static/css/main.2671014e.css.map",
+    "main.30a3db66.js.map": "/GourmetGuideB/static/js/main.30a3db66.js.map",
     "239.7172428c.chunk.js.map": "/GourmetGuideB/static/js/239.7172428c.chunk.js.map",
     "644.98e988a5.chunk.js.map": "/GourmetGuideB/static/js/644.98e988a5.chunk.js.map",
     "455.49a1b9d5.chunk.js.map": "/GourmetGuideB/static/js/455.49a1b9d5.chunk.js.map",
     "488.4e3405d0.chunk.js.map": "/GourmetGuideB/static/js/488.4e3405d0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.48874a27.css",
-    "static/js/main.6d8698c3.js"
+    "static/css/main.2671014e.css",
+    "static/js/main.30a3db66.js"
   ]
 }
