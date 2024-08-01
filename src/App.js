@@ -41,7 +41,7 @@ const HomePage = ({ onGetStarted }) => (
         <h2 className="text-5xl font-bold mb-6">Elevate Your Culinary Experience</h2>
         <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
           Discover personalized meal plans tailored to your preferences and ingredients. 
-          Let Gourmet Guide help you transform your pantry and fridge into delicacies!
+          Let Gourmet Guide help you transform ingredients in your pantry and fridge into delicacies!
         </p>
         <button
           onClick={onGetStarted}
