@@ -210,7 +210,78 @@ const MainScreen = ({ onGourmetGuideClick }) => {
           Gourmet Guide (Design B) 🧑‍🍳
         </h1>
         <div className="grid grid-cols-2 gap-8">
-        <div>
+          <div>
+            <h2 className="text-2xl font-bold mb-4">Input Method</h2>
+            {!inputType && (
+              <div className="mb-4">
+                <button
+                  onClick={() => setInputType('text')}
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mr-4"
+                >
+                  Text Input
+                </button>
+                <button
+                  onClick={() => setInputType('image')}
+                  className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                >
+                  Image Input
+                </button>
+              </div>
+            )}
+            {inputType === 'text' && (
+              <>
+                <h3 className="text-2x1 mb-7">Type your ingredients in below separated by comma. Only these ingredients will be used in creating the meal plan.</h3>
+                <textarea
+                  className="w-full h-40 p-2 text-black rounded"
+                  placeholder="Ingredients list"
+                  value={ingredients}
+                  onChange={(e) => setIngredients(e.target.value)}
+                />
+              </>
+            )}
+            {inputType === 'image' && (
+              <div className="mb-4">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="hidden"
+                  id="image-upload"
+                />
+                <label
+                  htmlFor="image-upload"
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded cursor-pointer"
+                >
+                  Upload Image
+                </label>
+                {uploadedImage && <p className="mt-2">Image uploaded: {uploadedImage.name}</p>}
+              </div>
+            )}
+            <div className="mt-4">
+              <label
+                htmlFor="days"
+                className="block text-sm font-medium text-gray-400"
+              >
+                # of Days to Plan:
+              </label>
+              <input
+                type="number"
+                id="days"
+                className="mt-1 p-2 w-full rounded border border-gray-700 bg-gray-800 text-white"
+                min="1"
+                value={daysToPlan}
+                onChange={(e) => setDaysToPlan(parseInt(e.target.value, 10))}
+              />
+            </div>
+            <button
+              onClick={generateMealPlan}
+              className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+              disabled={isGenerating || !inputType || (inputType === 'image' && !uploadedImage)}
+            >
+              {isGenerating ? 'Working...' : 'Create Meal Plan'}
+            </button>
+          </div>
+          <div>
             <h2 className="text-2xl font-bold mb-4">Meal Plan</h2>
             {mealPlan ? (
               <MealPlanContent className="bg-white text-black p-4 rounded h-80 overflow-auto">
