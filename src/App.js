@@ -7,28 +7,64 @@ import { marked } from 'marked';
 import img1 from "./feature-img.png";
 import img2 from "./Chef_icon.svg.png";
 import img3 from "./splash.png";
+import { ArrowRight, UtensilsCrossed, Clock, Sparkles } from 'lucide-react';
+
+const FeatureCard = ({ icon: Icon, title, description }) => (
+  <div className="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur-sm">
+    <Icon className="text-blue-300 w-12 h-12 mb-4" />
+    <h3 className="text-xl font-semibold mb-2">{title}</h3>
+    <p className="text-gray-300">{description}</p>
+  </div>
+);
 
 const HomePage = ({ onGetStarted }) => (
-  <div className="min-h-screen bg-blue-900 text-white p-8">
-    <div className="container mx-auto">
-      <h1 className="text-4xl font-bold mb-4">Gourmet Guide (Design B) 🧑‍🍳</h1>
-      <div className="mb-8">
-        <p className="mb-2">Get a fully personalized 3-meal per day plan for as many days as you'd like!</p>
-        <p className="mb-2">Go from ingredients to delicacies in seconds!</p>
-        <p className="mb-2">Use any food you have laying around!</p>
-        <p className="mb-2">Spend less time stressing about meal prep!</p>
-      </div>
-      <div className="grid grid-cols-3 gap-3 mb-8">
-      <img src={img1} style={{width: 250, height: 250}} alt="Food Picture 1"></img>
-        <img src={img2} style={{width: 250, height: 250}} alt="Food Picture 2"></img>
-        <img src={img3} style={{width: 250, height: 250}} alt="Food Picture 3"></img>
-      </div>
-      <button
-        onClick={onGetStarted}
-        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-      >
-        Get Started
-      </button>
+  <div className="min-h-screen bg-gradient-to-br from-blue-900 to-indigo-900 text-white">
+    <div className="container mx-auto px-4 py-16">
+      <nav className="flex justify-between items-center mb-16">
+        <h1 className="text-3xl font-bold">Gourmet Guide (Design B) 🧑‍🍳</h1>
+        <button
+          onClick={onGetStarted}
+          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+        >
+          Get Started
+        </button>
+      </nav>
+
+      <main className="text-center mb-20">
+        <h2 className="text-5xl font-bold mb-6">Elevate Your Culinary Experience</h2>
+        <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+          Discover personalized meal plans tailored to your preferences and ingredients. 
+          Let Gourmet Guide transform your kitchen into a haven of culinary delight.
+        </p>
+        <button
+          onClick={onGetStarted}
+          className="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center mx-auto"
+        >
+          Start Your Culinary Journey <ArrowRight className="ml-2" />
+        </button>
+      </main>
+
+      <section className="grid md:grid-cols-3 gap-8 mb-20">
+        <FeatureCard
+          icon={UtensilsCrossed}
+          title="Personalized Meal Plans"
+          description="Get a fully customized 3-meal per day plan for as many days as you desire."
+        />
+        <FeatureCard
+          icon={Sparkles}
+          title="Ingredient Magic"
+          description="Transform simple ingredients into gourmet delicacies with our expert recipes."
+        />
+        <FeatureCard
+          icon={Clock}
+          title="Effortless Meal Prep"
+          description="Save time and reduce stress with our efficient meal preparation guidance."
+        />
+      </section>
+
+      <footer className="text-center text-gray-400">
+        <p>&copy; 2024 Drew Reisner</p>
+      </footer>
     </div>
   </div>
 );
@@ -174,86 +210,17 @@ const MainScreen = ({ onGourmetGuideClick }) => {
           Gourmet Guide (Design B) 🧑‍🍳
         </h1>
         <div className="grid grid-cols-2 gap-8">
-          <div>
-            <h2 className="text-2xl font-bold mb-4">Input Method</h2>
-            {!inputType && (
-              <div className="mb-4">
-                <button
-                  onClick={() => setInputType('text')}
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mr-4"
-                >
-                  Text Input
-                </button>
-                <button
-                  onClick={() => setInputType('image')}
-                  className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-                >
-                  Image Input
-                </button>
-              </div>
-            )}
-            {inputType === 'text' && (
-              <>
-                <h3 className="text-2x1 mb-7">Type your ingredients in below in any format! Only these ingredients will be used in creating the meal plan.</h3>
-                <textarea
-                  className="w-full h-40 p-2 text-black rounded"
-                  placeholder="Ingredients list"
-                  value={ingredients}
-                  onChange={(e) => setIngredients(e.target.value)}
-                />
-              </>
-            )}
-            {inputType === 'image' && (
-              <div className="mb-4">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                  className="hidden"
-                  id="image-upload"
-                />
-                <label
-                  htmlFor="image-upload"
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded cursor-pointer"
-                >
-                  Upload Image
-                </label>
-                {uploadedImage && <p className="mt-2">Image uploaded: {uploadedImage.name}</p>}
-              </div>
-            )}
-            <div className="mt-4">
-              <label
-                htmlFor="days"
-                className="block text-sm font-medium text-gray-400"
-              >
-                # of Days to Plan:
-              </label>
-              <input
-                type="number"
-                id="days"
-                className="mt-1 p-2 w-full rounded border border-gray-700 bg-gray-800 text-white"
-                min="1"
-                value={daysToPlan}
-                onChange={(e) => setDaysToPlan(parseInt(e.target.value, 10))}
-              />
-            </div>
-            <button
-              onClick={generateMealPlan}
-              className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-              disabled={isGenerating || !inputType || (inputType === 'image' && !uploadedImage)}
-            >
-              {isGenerating ? 'Working...' : 'Create Meal Plan'}
-            </button>
-          </div>
-          <div>
+        <div>
             <h2 className="text-2xl font-bold mb-4">Meal Plan</h2>
-            <MealPlanContent className={`bg-white text-black p-4 rounded h-80 overflow-auto ${!mealPlan ? 'MealPlanPlaceholder' : ''}`}>
-              {mealPlan ? (
+            {mealPlan ? (
+              <MealPlanContent className="bg-white text-black p-4 rounded h-80 overflow-auto">
                 <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(mealPlan) }} />
-              ) : (
-                <span style={{ color: 'gray' }}>Your meal plan will appear here. Click "Create Meal Plan" below!</span>
-              )}
-            </MealPlanContent>
+              </MealPlanContent>
+            ) : (
+              <p className="text-gray-300 italic">
+                Your meal plan will appear here. Click "Create Meal Plan" below!
+              </p>
+            )}
             <h3 className="text-2x1 mt-4">Note: Calorie count may be inaccurate.</h3>
             {mealPlan && (
               <div className="mt-4">
